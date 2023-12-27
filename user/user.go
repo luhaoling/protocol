@@ -140,8 +140,14 @@ func (x *GetPaginationUsersReq) Check() error {
 
 func (x *UserRegisterReq) Check() error {
 	if x.Users == nil {
-		return errors.New("Users is empty")
+		return errors.New("Users are empty")
 	}
+	for _, u := range x.Users {
+		if u.Nickname == "" {
+			return errors.New("User name is empty")
+		}
+	}
+
 	return nil
 }
 
@@ -243,6 +249,27 @@ func (x *ProcessUserCommandGetReq) Check() error {
 	}
 	if x.Type == 0 {
 		return errors.New("type is not specified")
+	}
+	return nil
+}
+
+func (x *AddNotificationAccountReq) Check() error {
+	if x.NickName == "" {
+		return errors.New("nickName is empty")
+	}
+	if x.FaceURL == "" {
+		return errors.New("nickName is empty")
+	}
+	return nil
+}
+
+func (x *UpdateNotificationAccountInfoReq) Check() error {
+	if x.UserID == "" {
+		return errors.New("userID is empty")
+	}
+
+	if x.FaceURL == "" && x.NickName == "" {
+		return errors.New("faceURL and nickName is empty at the same")
 	}
 	return nil
 }
