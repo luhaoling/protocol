@@ -16,7 +16,6 @@ package msg
 
 import (
 	"errors"
-	"github.com/OpenIMSDK/protocol/constant"
 )
 
 func (x *GetMaxAndMinSeqReq) Check() error {
@@ -44,19 +43,6 @@ func (x *SetSendMsgStatusReq) Check() error {
 }
 
 func (x *GetSendMsgStatusReq) Check() error {
-	return nil
-}
-
-func (x *SearchMessageReq) Check() error {
-	if x.SendID == "" {
-		return errors.New("sendID is empty")
-	}
-	if x.RecvID == "" {
-		return errors.New("recvID is empty")
-	}
-	if x.MsgType < constant.Text || x.MsgType > constant.AdvancedText {
-		return errors.New("msgType is error")
-	}
 	return nil
 }
 
@@ -228,16 +214,6 @@ func (x *GetConversationMaxSeqReq) Check() error {
 func (x *GetConversationsHasReadAndMaxSeqReq) Check() error {
 	if x.UserID == "" {
 		return errors.New("userID is empty")
-	}
-	return nil
-}
-
-func (x *DeleteMsgPhysicalBySeqReq) Check() error {
-	if x.ConversationID == "" {
-		return errors.New("conversationID is empty")
-	}
-	if x.Seqs == nil {
-		return errors.New("seqs is empty")
 	}
 	return nil
 }
